@@ -1,0 +1,3 @@
+# ignoring deep learning model and scorer
+# add deepspeech-0.9.3-models.ftlite and .scorer files to deepSpeech folder
+# instructions available in github.com/touchgadget/DeepSpeech README.md
