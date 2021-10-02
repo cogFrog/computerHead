@@ -9,6 +9,10 @@ import webrtcvad
 from halo import Halo
 from scipy import signal
 
+# added import and setup for pyttsx3
+import pyttsx3
+engine = pyttsx3.init()
+
 logging.basicConfig(level=20)
 
 class Audio(object):
@@ -193,7 +197,15 @@ def main(ARGS):
                 wav_data = bytearray()
             text = stream_context.finishStream()
             print("Recognized: %s" % text)
-            os.system("espeak \"" + text + "\" -a 200 --stdout | aplay -D \'default\'")
+
+            # new work: using espeak to repeat recognized speech
+            #os.system("espeak \"" + text + "\" -a 200 --stdout | aplay -D \'default\'")
+
+            # now using pyttsx3 to take advantage of runAndWait(), which can prevent the STT from recognizing the TTS
+            engine.say(text)
+            engine.runAndWait()
+            print("Done talking")
+
             stream_context = model.createStream()
 
 if __name__ == '__main__':
