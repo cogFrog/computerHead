@@ -8,6 +8,7 @@ import wave
 import webrtcvad
 from halo import Halo
 from scipy import signal
+import pyttsx3
 
 logging.basicConfig(level=20)
 
@@ -157,6 +158,8 @@ def main(ARGS):
         model_dir = ARGS.model
         ARGS.model = os.path.join(model_dir, 'output_graph.pb')
         ARGS.scorer = os.path.join(model_dir, ARGS.scorer)
+    
+    engine = pyttsx3.init()
 
     print('Initializing model...')
     logging.info("ARGS.model: %s", ARGS.model)
@@ -193,6 +196,11 @@ def main(ARGS):
                 wav_data = bytearray()
             text = stream_context.finishStream()
             print("Recognized: %s" % text)
+            
+            if len(text) != 0:
+                engine.say(text)
+                engine.runAndWait()
+
             stream_context = model.createStream()
 
 if __name__ == '__main__':
