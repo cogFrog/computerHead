@@ -87,6 +87,12 @@ class Audio(object):
         self.stream.close()
         self.pa.terminate()
 
+    def pause(self):
+        self.stream.stop_stream()
+
+    def unpause(self):
+        self.stream.start_stream()
+
     frame_duration_ms = property(lambda self: 1000 * self.block_size // self.sample_rate)
 
     def write_wav(self, filename, data):
@@ -198,8 +204,10 @@ def main(ARGS):
             print("Recognized: %s" % text)
             
             if len(text) != 0:
+                vad_audio.pause()
                 engine.say(text)
                 engine.runAndWait()
+                vad_audio.unpause()
 
             stream_context = model.createStream()
 
