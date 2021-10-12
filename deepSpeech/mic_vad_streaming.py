@@ -203,7 +203,8 @@ def main(ARGS):
             text = stream_context.finishStream()
             print("Recognized: %s" % text)
             
-            if len(text) != 0:
+            # check that string is not empty or just 'he' (taps and bumps often interpreted as 'he')
+            if len(text) != 0 and text != "he":
                 vad_audio.pause()
                 engine.say(text)
                 engine.runAndWait()
