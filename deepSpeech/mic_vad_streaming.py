@@ -9,6 +9,7 @@ import webrtcvad
 from halo import Halo
 from scipy import signal
 import pyttsx3
+import pickle
 
 logging.basicConfig(level=20)
 
@@ -166,6 +167,9 @@ def main(ARGS):
         ARGS.scorer = os.path.join(model_dir, ARGS.scorer)
     
     engine = pyttsx3.init()
+    
+    sharedStatus = ""
+    fp = open("shared.pkl","w")
 
     print('Initializing model...')
     logging.info("ARGS.model: %s", ARGS.model)
@@ -209,6 +213,13 @@ def main(ARGS):
                 engine.say(text)
                 engine.runAndWait()
                 vad_audio.unpause()
+
+                if text == "off":
+                    sharedStatus = "off"
+                    pickle.dump(shared, fp)
+                elif text == "on":
+                    sharedStaus = "on"
+                    pickle.dump(shared, fp)
 
             stream_context = model.createStream()
 
