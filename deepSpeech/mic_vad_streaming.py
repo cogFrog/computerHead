@@ -168,8 +168,8 @@ def main(ARGS):
     
     engine = pyttsx3.init()
     
-    sharedStatus = ""
-    fp = open("shared.pkl","w")
+    #with open('shared.pkl', 'wb') as f:
+    #    pickle.dump("init", f)
 
     print('Initializing model...')
     logging.info("ARGS.model: %s", ARGS.model)
@@ -214,12 +214,14 @@ def main(ARGS):
                 engine.runAndWait()
                 vad_audio.unpause()
 
-                if text == "off":
-                    sharedStatus = "off"
-                    pickle.dump(shared, fp)
+                if text == "suffering":
+                    with open('shared.pkl', 'wb') as f:
+                        pickle.dump("suffering", f)
+                    print("pain")
                 elif text == "on":
-                    sharedStaus = "on"
-                    pickle.dump(shared, fp)
+                    with open('shared.pkl', 'wb') as f:
+                        pickle.dump("on", f)
+                    print("on")
 
             stream_context = model.createStream()
 
