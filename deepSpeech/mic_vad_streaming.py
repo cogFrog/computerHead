@@ -209,19 +209,37 @@ def main(ARGS):
             
             # check that string is not empty or just 'he' (taps and bumps often interpreted as 'he')
             if len(text) != 0 and text != "he":
-                vad_audio.pause()
-                engine.say(text)
-                engine.runAndWait()
-                vad_audio.unpause()
-
-                if text == "suffering":
+                if text == "happy halloween":
                     with open('shared.pkl', 'wb') as f:
-                        pickle.dump("suffering", f)
-                    print("pain")
-                elif text == "on":
+                        pickle.dump("pumpkin", f)
+                    vad_audio.pause()
+                    engine.say(text)
+                    engine.runAndWait()
+                    vad_audio.unpause()
+                elif text == "yes":
                     with open('shared.pkl', 'wb') as f:
-                        pickle.dump("on", f)
-                    print("on")
+                        pickle.dump("yes", f)
+                    vad_audio.pause()
+                    engine.say(text)
+                    engine.runAndWait()
+                    vad_audio.unpause()
+                elif text == "no":
+                    with open('shared.pkl', 'wb') as f:
+                        pickle.dump("no", f)
+                    vad_audio.pause()
+                    engine.say(text)
+                    engine.runAndWait()
+                    vad_audio.unpause()
+                elif text == "skeleton":
+                    with open('shared.pkl', 'wb') as f:
+                        pickle.dump("skeleton", f)
+                else:
+                    vad_audio.pause()
+                    engine.say(text)
+                    engine.runAndWait()
+                    vad_audio.unpause()
+                    with open('shared.pkl', 'wb') as f:
+                        pickle.dump("default", f)
 
             stream_context = model.createStream()
 
