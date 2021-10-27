@@ -257,6 +257,9 @@ def main(ARGS):
                 elif text == "radio":
                     with open('shared.pkl', 'wb') as f:
                         pickle.dump("wireless", f)
+                elif text == "clear":
+                    with open('shared.pkl', 'wb') as f:
+                        pickle.dump("clear", f)
                 else:
                     vad_audio.pause()
                     engine.say(text)

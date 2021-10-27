@@ -150,5 +150,7 @@ while True:
         displayImg('wireless2.gif', False)
         time.sleep(0.5)
         displayImg('wireless3.gif', False)
+    elif metastate == "clear":
+        displayImg('clear.gif', False)
 
     time.sleep(0.5)
