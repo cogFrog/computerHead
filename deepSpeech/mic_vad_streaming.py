@@ -233,6 +233,30 @@ def main(ARGS):
                 elif text == "skeleton":
                     with open('shared.pkl', 'wb') as f:
                         pickle.dump("skeleton", f)
+                elif text == "surprise":
+                    with open('shared.pkl', 'wb') as f:
+                        pickle.dump("!", f)
+                elif text == "question":
+                    with open('shared.pkl', 'wb') as f:
+                        pickle.dump("?", f)
+                elif text == "time":
+                    with open('shared.pkl', 'wb') as f:
+                        pickle.dump("clock", f)
+                elif text == "heart":
+                    with open('shared.pkl', 'wb') as f:
+                        pickle.dump("heart", f)
+                elif text == "note":
+                    with open('shared.pkl', 'wb') as f:
+                        pickle.dump("note", f)
+                elif text == "math":
+                    with open('shared.pkl', 'wb') as f:
+                        pickle.dump("pi", f)
+                elif text == "waving":
+                    with open('shared.pkl', 'wb') as f:
+                        pickle.dump("wave", f)
+                elif text == "radio":
+                    with open('shared.pkl', 'wb') as f:
+                        pickle.dump("wireless", f)
                 else:
                     vad_audio.pause()
                     engine.say(text)

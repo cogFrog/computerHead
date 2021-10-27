@@ -17,7 +17,7 @@ def clearScreen():
 
 
 def displayImg(imageName, reflect):
-    img = numpy.array(Image.open(imageName))
+    img = numpy.array(Image.open("icons/" + imageName))
     pixNum = 0
 
     #print(img)
@@ -44,9 +44,9 @@ def setState(newState):
     global state
     state = newState
     if state <= 2:
-        displayImg(str(state) + '.gif', True)
+        displayImg('eye' + str(state) + '.gif', True)
     else:
-        displayImg(str(5 - state) + '.gif', False)
+        displayImg('eye' + str(5 - state) + '.gif', False)
 
 clearScreen()
 
@@ -72,13 +72,13 @@ while True:
             elif randVal < 0.75:
                 longDelay()
             else:
-                displayImg('3.gif', True)
+                displayImg('eye3.gif', True)
                 time.sleep(0.05)
-                displayImg('4.gif', True)
+                displayImg('eye4.gif', True)
                 time.sleep(0.05)
-                displayImg('3.gif', True)
+                displayImg('eye3.gif', True)
                 time.sleep(0.05)
-                displayImg('2.gif', True)
+                displayImg('eye2.gif', True)
                 longDelay()
         elif state == 3:
             if randVal < 0.25:
@@ -88,13 +88,13 @@ while True:
             elif randVal < 0.75:
                 longDelay()
             else:
-                displayImg('3.gif', False)
+                displayImg('eye3.gif', False)
                 time.sleep(0.05)
-                displayImg('4.gif', False)
+                displayImg('eye4.gif', False)
                 time.sleep(0.05)
-                displayImg('3.gif', False)
+                displayImg('eye3.gif', False)
                 time.sleep(0.05)
-                displayImg('2.gif', False)
+                displayImg('eye2.gif', False)
                 longDelay()
         elif state == 4:
             if randVal < 0.5:
@@ -109,5 +109,46 @@ while True:
         displayImg('check.gif', False)
     elif metastate == "no":
         displayImg('x.gif', False)
-    
+    elif metastate == "!":
+        displayImg('!.gif', False)
+    elif metastate == "?":
+        displayImg('?.gif', False)
+    elif metastate == "clock":
+        displayImg('clock1.gif', False)
+        time.sleep(0.1)
+        displayImg('clock2.gif', False)
+        time.sleep(0.1)
+        displayImg('clock3.gif', False)
+        time.sleep(0.1)
+        displayImg('clock4.gif', False)
+        time.sleep(0.1)
+        displayImg('clock5.gif', False)
+        time.sleep(0.1)
+        displayImg('clock6.gif', False)
+        time.sleep(0.1)
+        displayImg('clock7.gif', False)
+        time.sleep(0.1)
+        displayImg('clock8.gif', False)
+    elif metastate == "heart":
+        displayImg('heart.gif', False) 
+    elif metastate == "note":
+        displayImg('note.gif', False)
+        # play music here?
+    elif metastate == "pi":
+        displayImg('pi.gif', False)
+    elif metastate == "wave":
+        displayImg('wave1.gif', False)
+        time.sleep(0.5)
+        displayImg('wave2.gif', False)
+        time.sleep(0.5)
+        displayImg('wave3.gif', False)
+        time.sleep(0.5)
+        displayImg('wave2.gif', False)
+    elif metastate == "wireless":
+        displayImg('wireless1.gif', False)
+        time.sleep(0.5)
+        displayImg('wireless2.gif', False)
+        time.sleep(0.5)
+        displayImg('wireless3.gif', False)
+
     time.sleep(0.5)
