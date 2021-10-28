@@ -9,6 +9,9 @@ import webrtcvad
 from halo import Halo
 from scipy import signal
 import pyttsx3
+import pickle
+import vlc
+import random
 
 logging.basicConfig(level=20)
 
@@ -166,6 +169,11 @@ def main(ARGS):
         ARGS.scorer = os.path.join(model_dir, ARGS.scorer)
     
     engine = pyttsx3.init()
+    
+    #with open('shared.pkl', 'wb') as f:
+    #    pickle.dump("init", f)
+    
+    p = vlc.MediaPlayer('/home/pi/computerHead/music/1.mp3')
 
     print('Initializing model...')
     logging.info("ARGS.model: %s", ARGS.model)
@@ -179,13 +187,13 @@ def main(ARGS):
                          device=ARGS.device,
                          input_rate=ARGS.rate,
                          file=ARGS.file)
-    print("Listening (ctrl-C to exit)...")
+    #print("Listening (ctrl-C to exit)...")
     frames = vad_audio.vad_collector()
 
     # Stream from microphone to DeepSpeech using VAD
     spinner = None
-    if not ARGS.nospinner:
-        spinner = Halo(spinner='line')
+    #if not ARGS.nospinner:
+        #spinner = Halo(spinner='line')
     stream_context = model.createStream()
     wav_data = bytearray()
     for frame in frames:
@@ -201,14 +209,87 @@ def main(ARGS):
                 vad_audio.write_wav(os.path.join(ARGS.savewav, datetime.now().strftime("savewav_%Y-%m-%d_%H-%M-%S_%f.wav")), wav_data)
                 wav_data = bytearray()
             text = stream_context.finishStream()
-            print("Recognized: %s" % text)
+            #print("Recognized: %s" % text)
             
             # check that string is not empty or just 'he' (taps and bumps often interpreted as 'he')
             if len(text) != 0 and text != "he":
-                vad_audio.pause()
-                engine.say(text)
-                engine.runAndWait()
-                vad_audio.unpause()
+                if text == "happy halloween":
+                    p.stop()
+                    with open('shared.pkl', 'wb') as f:
+                        pickle.dump("pumpkin", f)
+                    vad_audio.pause()
+                    engine.say(text)
+                    engine.runAndWait()
+                    vad_audio.unpause()
+                elif text == "yes":
+                    p.stop()
+                    with open('shared.pkl', 'wb') as f:
+                        pickle.dump("yes", f)
+                    vad_audio.pause()
+                    engine.say(text)
+                    engine.runAndWait()
+                    vad_audio.unpause()
+                elif text == "no":
+                    p.stop()
+                    with open('shared.pkl', 'wb') as f:
+                        pickle.dump("no", f)
+                    vad_audio.pause()
+                    engine.say(text)
+                    engine.runAndWait()
+                    vad_audio.unpause()
+                elif text == "skeleton":
+                    p.stop()
+                    with open('shared.pkl', 'wb') as f:
+                        pickle.dump("skeleton", f)
+                elif text == "surprise":
+                    p.stop()
+                    with open('shared.pkl', 'wb') as f:
+                        pickle.dump("!", f)
+                elif text == "question":
+                    p.stop()
+                    with open('shared.pkl', 'wb') as f:
+                        pickle.dump("?", f)
+                elif text == "time":
+                    p.stop()
+                    with open('shared.pkl', 'wb') as f:
+                        pickle.dump("clock", f)
+                elif text == "heart":
+                    p.stop()
+                    with open('shared.pkl', 'wb') as f:
+                        pickle.dump("heart", f)
+                elif text == "note":
+                    with open('shared.pkl', 'wb') as f:
+                        pickle.dump("note", f)
+                        
+                    #play song
+                    p.stop()
+                    p = vlc.MediaPlayer("/home/pi/computerHead/music/" + str(random.randint(1,11)) + ".mp3")
+                    vlc.libvlc_audio_set_volume(p, 75)
+                    p.play()
+                elif text == "math":
+                    p.stop()
+                    with open('shared.pkl', 'wb') as f:
+                        pickle.dump("pi", f)
+                elif text == "waving":
+                    p.stop()
+                    with open('shared.pkl', 'wb') as f:
+                        pickle.dump("wave", f)
+                elif text == "radio":
+                    p.stop()
+                    with open('shared.pkl', 'wb') as f:
+                        pickle.dump("wireless", f)
+                elif text == "clear":
+                    p.stop()
+                    with open('shared.pkl', 'wb') as f:
+                        pickle.dump("clear", f)
+                else:
+                    p.stop()
+                    vad_audio.pause()
+                    engine.say(text)
+                    engine.runAndWait()
+                    vad_audio.unpause()
+                    with open('shared.pkl', 'wb') as f:
+                        pickle.dump("default", f)
 
             stream_context = model.createStream()
 
