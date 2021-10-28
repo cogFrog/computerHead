@@ -263,7 +263,7 @@ def main(ARGS):
                         
                     #play song
                     p.stop()
-                    p = vlc.MediaPlayer("/home/pi/computerHead/music/" + str(random.randint(1,2)) + ".mp3")
+                    p = vlc.MediaPlayer("/home/pi/computerHead/music/" + str(random.randint(1,11)) + ".mp3")
                     vlc.libvlc_audio_set_volume(p, 75)
                     p.play()
                 elif text == "math":
