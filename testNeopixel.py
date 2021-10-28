@@ -5,12 +5,16 @@ import numpy
 from PIL import Image
 import random
 import pickle
+#import vlc
 
 
 pixels = neopixel.NeoPixel(board.D21, 256, auto_write=False)
 brightness = 50
 state = 2
 metastate = "default"
+
+#p = vlc.MediaPlayer('music/1.mp3')
+#playing = False
 
 def clearScreen():
     pixels.fill((0,0,0))
@@ -19,8 +23,6 @@ def clearScreen():
 def displayImg(imageName, reflect):
     img = numpy.array(Image.open("icons/" + imageName))
     pixNum = 0
-
-    #print(img)
     
     for i in range(len(img)):
         if (i % 2 == 1) == reflect:
@@ -55,9 +57,11 @@ while True:
     with open('deepSpeech/shared.pkl', 'rb') as f:
         metastate = pickle.load(f)
     
-    print(metastate)
+    #print(metastate)
 
     if metastate == "default":
+        #p.stop()
+        #playing = False
         randVal = random.random()
         if state == 1:
             if randVal < 0.5:
@@ -102,18 +106,32 @@ while True:
             else:
                 longDelay()
     elif metastate == "pumpkin":
+        #p.stop()
+        #playing = False
         displayImg('pumpkin.gif', False)
     elif metastate == "skeleton":
+        #p.stop()
+        #playing = False
         displayImg('skull.gif', False)
     elif metastate == "yes":
+        #p.stop()
+        #playing = False
         displayImg('check.gif', False)
     elif metastate == "no":
+        #p.stop()
+        #playing = False
         displayImg('x.gif', False)
     elif metastate == "!":
+        #p.stop()
+        #playing = False
         displayImg('!.gif', False)
     elif metastate == "?":
+        #p.stop()
+        #playing = False
         displayImg('?.gif', False)
     elif metastate == "clock":
+        #p.stop()
+        #playing = False
         displayImg('clock1.gif', False)
         time.sleep(0.1)
         displayImg('clock2.gif', False)
@@ -130,13 +148,25 @@ while True:
         time.sleep(0.1)
         displayImg('clock8.gif', False)
     elif metastate == "heart":
+        #p.stop()
+        #playing = False
         displayImg('heart.gif', False) 
-    elif metastate == "note":
+    elif metastate == "note": 
         displayImg('note.gif', False)
-        # play music here?
+        
+        # randomly select song to play
+        #if not playing:
+            #p = vlc.MediaPlayer("music/" + str(random.randint(1,2)) + ".mp3")
+            #vlc.libvlc_audio_set_volume(p, 75)
+            #p.play()
+            #playing = True
     elif metastate == "pi":
+        #p.stop()
+        #playing = False
         displayImg('pi.gif', False)
     elif metastate == "wave":
+        #p.stop()
+        #playing = False
         displayImg('wave1.gif', False)
         time.sleep(0.5)
         displayImg('wave2.gif', False)
@@ -145,12 +175,16 @@ while True:
         time.sleep(0.5)
         displayImg('wave2.gif', False)
     elif metastate == "wireless":
+        #p.stop()
+        #playing = False
         displayImg('wireless1.gif', False)
         time.sleep(0.5)
         displayImg('wireless2.gif', False)
         time.sleep(0.5)
         displayImg('wireless3.gif', False)
     elif metastate == "clear":
+        #p.stop()
+        #playing = False
         displayImg('clear.gif', False)
 
     time.sleep(0.5)

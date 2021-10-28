@@ -10,6 +10,7 @@ from halo import Halo
 from scipy import signal
 import pyttsx3
 import pickle
+import vlc
 
 logging.basicConfig(level=20)
 
@@ -183,13 +184,13 @@ def main(ARGS):
                          device=ARGS.device,
                          input_rate=ARGS.rate,
                          file=ARGS.file)
-    print("Listening (ctrl-C to exit)...")
+    #print("Listening (ctrl-C to exit)...")
     frames = vad_audio.vad_collector()
 
     # Stream from microphone to DeepSpeech using VAD
     spinner = None
-    if not ARGS.nospinner:
-        spinner = Halo(spinner='line')
+    #if not ARGS.nospinner:
+        #spinner = Halo(spinner='line')
     stream_context = model.createStream()
     wav_data = bytearray()
     for frame in frames:
@@ -205,7 +206,7 @@ def main(ARGS):
                 vad_audio.write_wav(os.path.join(ARGS.savewav, datetime.now().strftime("savewav_%Y-%m-%d_%H-%M-%S_%f.wav")), wav_data)
                 wav_data = bytearray()
             text = stream_context.finishStream()
-            print("Recognized: %s" % text)
+            #print("Recognized: %s" % text)
             
             # check that string is not empty or just 'he' (taps and bumps often interpreted as 'he')
             if len(text) != 0 and text != "he":
@@ -248,6 +249,7 @@ def main(ARGS):
                 elif text == "note":
                     with open('shared.pkl', 'wb') as f:
                         pickle.dump("note", f)
+                    
                 elif text == "math":
                     with open('shared.pkl', 'wb') as f:
                         pickle.dump("pi", f)
